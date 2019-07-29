@@ -7,6 +7,26 @@
 #include <cstdlib>
 #include <fstream>
 
+/********************************************************************************
+ * This file convert mime.types from Apache to a cpp file. The format of
+ *  mime.types:
+ *  
+ *  video/mp4					mp4 mp4v mpg4
+ *  image/jpeg					jpeg jpg jpe
+ *
+ * The format of generated c++ file:
+ * 
+ *  #include <unordered_map>
+ *  #include<string>
+ *
+ *  std::unordered_map<std::string, std::string> extension2Type = {
+ *  	{"mp4", "video"},
+ *  	{"jpg", "image"},
+ *  	{"mp3", "audio"},
+ *  };
+ * 
+ ********************************************************************************/
+
 std::vector<std::string> fileTypes = {"video", "image", "audio"};
 
 int main(int argc, char* argv[])
