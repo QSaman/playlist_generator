@@ -20,8 +20,15 @@ include_directories(${CXXOPTS_INCLUDE_DIR})
 #set(THREADS_PREFER_PTHREAD_FLAG ON)
 #find_package(Threads REQUIRED)
 
+add_executable(embed_mime_types resource/embed_mime_types.cpp)
+add_custom_command(
+	OUTPUT mime_types.cpp
+	COMMAND embed_mime_types ${CMAKE_SOURCE_DIR}/resource/mime.types mime_types.cpp
+	DEPENDS ${CMAKE_SOURCE_DIR}/resource/mime.types)
 
 ucm_add_dirs(src TO SRC_LIST)
+set(SRC_LIST ${SRC_LIST} mime_types.cpp)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 add_dependencies(${PROJECT_NAME} external_cxxopts)
 target_link_libraries(${PROJECT_NAME} PUBLIC Boost::system Boost::filesystem)
+
